@@ -359,6 +359,10 @@ namespace Map1
             {
                 size = minSize;
             }
+            if(size > minSize + 5)
+            {
+                Panel.SlideInBegin();
+            }
 
            
             Vector3 position = new Vector3();
@@ -444,11 +448,12 @@ namespace Map1
             position.X = (float)e.GetPosition(this).X;
             position.Y = (float)(this.ActualHeight - e.GetPosition(this).Y);
             position.Z = 0;
-
-            //if (size <= minSize + 5)
-            //{
-            if (size <= 100)
+            //Panel.SlideOutBegin();
+            if (size <= minSize + 5)
             {
+                Panel.SlideOutBegin();
+                //    if (size <= 100)
+                //{
                 AppCallbacks.Instance.TryInvokeOnAppThread(() =>
             {
                 UnityEngine.GameObject nearestSmile;
@@ -463,7 +468,7 @@ namespace Map1
                             //   UnityEngine.Debug.Log("s");
                             smileCoordinates.Add(toVector3(cam.WorldToScreenPoint(smile.transform.position)));
                     }
-                    Panel.SlideOutBegin();
+                  
 
                 }
 

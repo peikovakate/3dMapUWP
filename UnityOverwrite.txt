@@ -10,7 +10,7 @@ Map1\App.xaml: E739DCAB5C7D88D39B4AE019DCD0AF2F
 Map1\App.xaml.cs: C42F6A4BE9D1EDDB909A29D87747CED9
 Map1\MainPage.xaml: modified
 Map1\MainPage.xaml.cs: modified
-Map1\Map1.csproj: 01BEBFBB38C2400A978B7EA8C5CBE1D7
+Map1\Map1.csproj: modified
 Map1\Map1.csproj.user: modified
 Map1\Package.appxmanifest: 0A6701F3CF9680484F29E6526B760067
 Map1\project.json: 1D02BC64BAC0D041019673A1C4C51737
@@ -35,5 +35,5 @@ Map1\bin\x64\Release\AppX\Assets\Wide310x150Logo.scale-200.png: C96846A80DF667F8
 Map1\obj\x64\Debug\App.xaml: 58E9AEB77C1614629F61CA2F2A21DF1B
 Map1\obj\x64\Debug\MainPage.xaml: 84B511D3AAACC127B6D596387B78687F
 Map1\obj\x64\Release\App.xaml: 58E9AEB77C1614629F61CA2F2A21DF1B
-Map1\obj\x64\Release\MainPage.xaml: 26E857FFB0F0F87219B65D51CE8659DC
+Map1\obj\x64\Release\MainPage.xaml: modified
 Map1\Properties\AssemblyInfo.cs: 4A9980AD1908BC554AA672A2C8D442F2

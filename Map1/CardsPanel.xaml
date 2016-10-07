@@ -15,7 +15,8 @@
                 Duration="0:0:1" 
                 To="300" 
                 Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" 
-                Storyboard.TargetName="Panel" d:IsOptimized="True">
+                Storyboard.TargetName="Panel"
+                SpeedRatio="3">
                 <DoubleAnimation.EasingFunction>
                     <ExponentialEase EasingMode="EaseOut"/>
                 </DoubleAnimation.EasingFunction>
@@ -27,7 +28,8 @@
                 Duration="0:0:1" 
                 To="0" 
                 Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" 
-                Storyboard.TargetName="Panel" d:IsOptimized="True">
+                Storyboard.TargetName="Panel"
+                SpeedRatio="3">
                 <DoubleAnimation.EasingFunction>
                     <ExponentialEase EasingMode="EaseOut"/>
                 </DoubleAnimation.EasingFunction>
@@ -35,17 +37,82 @@
         </Storyboard>
     </UserControl.Resources>
 
-    <Grid d:IsHidden="True">
-        <Rectangle 
+    <Grid>
+        <Grid
             x:Name="Panel"
-            Fill="Red" 
             Width="300" 
-            Margin="-300,0,0,0" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5" d:IsHidden="True"
-            
+            Margin="-300,0,0,0"
+            HorizontalAlignment="Left" 
+            RenderTransformOrigin="0.5,0.5" >
+            <Rectangle            
+            Fill="Red" 
             >
-            <Rectangle.RenderTransform>
+            </Rectangle>
+            <ListView
+              
+                
+                >
+
+                
+                <ListViewItem 
+                    Height="200" HorizontalContentAlignment="Center">
+                    <Rectangle 
+                        Fill="White" 
+                        Width="200" 
+                        Height="180"/>
+                </ListViewItem>
+                <ListViewItem Height="200" HorizontalContentAlignment="Center">
+                    <Rectangle 
+                        Fill="White" 
+                        Width="200" 
+                        Height="180"/>
+                </ListViewItem>
+                <ListViewItem 
+                    Height="200" HorizontalContentAlignment="Center">
+                    <Rectangle 
+                        Fill="White" 
+                        Width="200" 
+                        Height="180"/>
+                </ListViewItem>
+                <ListViewItem Height="200" HorizontalContentAlignment="Center">
+                    <Rectangle 
+                        Fill="White" 
+                        Width="200" 
+                        Height="180"/>
+                </ListViewItem>
+                <ListViewItem Height="200" HorizontalContentAlignment="Center">
+                    <Rectangle 
+                        Fill="White" 
+                        Width="200" 
+                        Height="180"/>
+                </ListViewItem>
+                <ListViewItem 
+                    Height="200" HorizontalContentAlignment="Center">
+                    <Rectangle 
+                        Fill="White" 
+                        Width="200" 
+                        Height="180"/>
+                </ListViewItem>
+                <ListViewItem Height="200" HorizontalContentAlignment="Center">
+                    <Rectangle 
+                        Fill="White" 
+                        Width="200" 
+                        Height="180"/>
+                </ListViewItem>
+                <ListViewItem Height="200" HorizontalContentAlignment="Center">
+                    <Rectangle 
+                        Fill="White" 
+                        Width="200" 
+                        Height="180"/>
+                </ListViewItem>
+            </ListView>
+            
+
+            
+            <Grid.RenderTransform>
                 <CompositeTransform/>
-            </Rectangle.RenderTransform>
-        </Rectangle>
+            </Grid.RenderTransform>
+
+        </Grid>
     </Grid>
 </UserControl>

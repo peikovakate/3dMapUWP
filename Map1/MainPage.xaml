@@ -26,8 +26,11 @@
             PointerPressed="ContentGrid_PointerPressed"
             Tapped="ContentGrid_Tapped"
            >
-            <local:CardsPanel
-                x:Name="Panel"/>
+           
         </Grid>
+
+        <local:CardsPanel 
+                x:Name="Panel" 
+                />
     </Grid>
 </Page>
