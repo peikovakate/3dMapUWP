@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" 
-   
     >
     <UserControl.Resources>
         <Storyboard 
@@ -45,15 +44,9 @@
             HorizontalAlignment="Left" 
             RenderTransformOrigin="0.5,0.5" >
             <Rectangle            
-            Fill="Red" 
-            >
+            Fill="Red">
             </Rectangle>
-            <ListView
-              
-                
-                >
-
-                
+            <ListView>
                 <ListViewItem 
                     Height="200" HorizontalContentAlignment="Center">
                     <Rectangle 
@@ -106,9 +99,7 @@
                         Height="180"/>
                 </ListViewItem>
             </ListView>
-            
 
-            
             <Grid.RenderTransform>
                 <CompositeTransform/>
             </Grid.RenderTransform>

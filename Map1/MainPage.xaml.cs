@@ -226,125 +226,41 @@ namespace Map1
 
         private void ContentGrid_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
         {
-            AppCallbacks.Instance.TryInvokeOnAppThread(() =>
-            {
-                if (nearestTable != null)
-                {
-                    //UnityEngine.GameObject.FindGameObjectWithTag("Sphere1").GetComponent<moveSphere>().targetPosition = nearestTable.transform.position;
-                    UnityEngine.GameObject.FindGameObjectWithTag("MainCamera").GetComponent<RotatigScript>().target = nearestTable.transform;
-                }
-
-                if (size == maxSize)
-                {
-                    UnityEngine.GameObject.FindGameObjectWithTag("MainCamera").GetComponent<RotatigScript>().target = null;
-                }
-            }, false);
-
-            // UnityEngine.Debug.Log(e.Position.X + " " + e.Position.Y);
-            //    if (isScale) { 
-            //        Vector3 position = new Vector3();
-            //    if (e.Position != null)
-            //    {
-            //        position.X = (float)e.Position.X;
-            //        position.Y = (float)(this.ActualHeight - e.Position.Y);
-            //        position.Z = 0;
-            //    }
-            //    float minDist = float.MaxValue;
-
+            //if (e.Cumulative.Scale != 1)
+            //{
             //    AppCallbacks.Instance.TryInvokeOnAppThread(() =>
             //    {
-            //        UnityEngine.GameObject nearestTable;
-            //        var tables = UnityEngine.GameObject.FindGameObjectsWithTag("Table");
-            //        if (coordinates.Count == 0)
-            //        {
-            //            tables = UnityEngine.GameObject.FindGameObjectsWithTag("Table");
-            //            foreach (var table in tables)
-            //            {
-            //                coordinates.Add(toVector3(table.GetComponent<ClickingScript>().ScreenCoordinates));
-            //            }
-            //            //UnityEngine.Debug.Log("added " + coordinates.Count + " tables");
-            //        }
-
-            //        tables = UnityEngine.GameObject.FindGameObjectsWithTag("Table");
-            //        nearestTable = tables[0];
-            //        //UnityEngine.Debug.Log("founded " + tables.Length + " tables");
-            //        for (int i = 0; i < tables.Length; i++)
-            //        {
-            //            //UnityEngine.Debug.Log(i);
-            //            if (i > coordinates.Count)
-            //            {
-            //                coordinates.Add(toVector3(tables[i].GetComponent<ClickingScript>().ScreenCoordinates));
-            //            }
-            //            coordinates[i] = toVector3(tables[i].GetComponent<ClickingScript>().ScreenCoordinates);
-            //            coordinates[i] = new System.Numerics.Vector3(coordinates[i].X, coordinates[i].Y, 0);
-            //            //UnityEngine.Debug.Log(coordinates[i]);
-            //            float tempDist = Vector3.Distance(position, coordinates[i]);
-            //            //UnityEngine.Debug.Log("temp distance = " + tempDist);
-            //            if (tempDist < minDist)
-            //            {
-            //                minDist = tempDist;
-            //                nearestTable = tables[i];
-            //            }
-
-            //        }
-            //        //UnityEngine.Debug.Log("minimum distane = " + minDist);
             //        if (nearestTable != null)
             //        {
             //            //UnityEngine.GameObject.FindGameObjectWithTag("Sphere1").GetComponent<moveSphere>().targetPosition = nearestTable.transform.position;
             //            UnityEngine.GameObject.FindGameObjectWithTag("MainCamera").GetComponent<RotatigScript>().target = nearestTable.transform;
             //        }
 
-            //        isScale = false;
-
             //        if (size == maxSize)
             //        {
+
             //            UnityEngine.GameObject.FindGameObjectWithTag("MainCamera").GetComponent<RotatigScript>().target = null;
             //        }
-            //        UnityEngine.GameObject.FindGameObjectWithTag("MainCamera").GetComponent<RotatigScript>().targetSize = size;
-
             //    }, false);
+
             //}
-
-            //    //UnityEngine.Debug.Log(dX);
-            //    if (Math.Abs(dX) > 300 || Math.Abs(dY) > 300)
-            //    {
-            //        UnityEngine.Debug.Log("event!");
-            //        float tDx = dX;
-            //        float tDy = dY;
-            //        AppCallbacks.Instance.TryInvokeOnAppThread(() =>
-            //        {
-            //            var camContainer = UnityEngine.GameObject.FindGameObjectWithTag("CameraContainer").GetComponent<MoveCameraContainer>();
-            //            UnityEngine.Debug.Log("tDx  " + tDx);
-            //            UnityEngine.Debug.Log("tDy " + tDy);
-            //            camContainer.DeltaX = -tDx/300.0f;
-            //            camContainer.DeltaY = -tDy/300.0f;
-
-            //        }, false);
-
-            //    }
 
             dX = dY = 0;
         }
         float maxSize = 40;
         float minSize = 15;
-        bool isScale = false;
+       
         float dX = 0;
         float dY = 0;
         private void ContentGrid_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
-            //scale *= e.Delta.Scale;
-            //size *= 0.99f;
-
-            //dX += (float)e.Delta.Translation.X;
-            //dY += (float)e.Delta.Translation.Y;
-
-            if (e.Delta.Scale != 1)
-            {
-                isScale = true;
-            }
-
-            //if(Math.Abs(1 - e.Delta.Scale) <= 0.001)
+            //float delta = Math.Abs(e.Delta.Scale - 1);
+            //if (delta <= 0.005 )
             //{
+            //    AppCallbacks.Instance.TryInvokeOnAppThread(() =>
+            //    {
+            //        UnityEngine.GameObject.FindGameObjectWithTag("MainCamera").GetComponent<RotatigScript>().delta = 1;
+            //    }, false);
             //    return;
             //}
 
@@ -364,14 +280,11 @@ namespace Map1
                 Panel.SlideInBegin();
             }
 
-           
+            StartPoint = e.Position;
             Vector3 position = new Vector3();
-            if (e.Position != null)
-            {
-                position.X = (float)e.Position.X;
-                position.Y = (float)(this.ActualHeight - e.Position.Y);
-                position.Z = 0;
-            }
+            position.X = (float)StartPoint.X;
+            position.Y = (float)(this.ActualHeight - StartPoint.Y);
+            position.Z = 0;
             float minDist = float.MaxValue;
 
             AppCallbacks.Instance.TryInvokeOnAppThread(() =>
@@ -411,31 +324,42 @@ namespace Map1
 
                 }
                 //UnityEngine.Debug.Log("minimum distane = " + minDist);
-                //if (nearestTable != null)
-                //{
-                //    //UnityEngine.GameObject.FindGameObjectWithTag("Sphere1").GetComponent<moveSphere>().targetPosition = nearestTable.transform.position;
-                //    UnityEngine.GameObject.FindGameObjectWithTag("MainCamera").GetComponent<RotatigScript>().target = nearestTable.transform;
-                //}
-
-                //isScale = false;
-
-                //if (size == maxSize)
-                //{
-                //    UnityEngine.GameObject.FindGameObjectWithTag("MainCamera").GetComponent<RotatigScript>().target = null;
-                //}
+                if (nearestTable != null)
+                {
+                    //UnityEngine.GameObject.FindGameObjectWithTag("Sphere1").GetComponent<moveSphere>().targetPosition = nearestTable.transform.position;
+                    UnityEngine.GameObject.FindGameObjectWithTag("MainCamera").GetComponent<RotatigScript>().target = nearestTable.transform;
+                    UnityEngine.GameObject.FindGameObjectWithTag("MainCamera").GetComponent<RotatigScript>().coord =
+                    coord;
+                    //UnityEngine.GameObject.FindGameObjectWithTag("MainCamera").GetComponent<RotatigScript>().delta = delta;
+                }
+                if (size == maxSize)
+                {
+                    UnityEngine.GameObject.FindGameObjectWithTag("MainCamera").GetComponent<RotatigScript>().target = null;
+                }
                 UnityEngine.GameObject.FindGameObjectWithTag("MainCamera").GetComponent<RotatigScript>().targetSize = size;
 
             }, false);
             
 
         }
-            //scale *= e.Delta.Scale;
-        
+        //scale *= e.Delta.Scale;
+        UnityEngine.Vector3 coord;
 
         private void ContentGrid_ManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
         {
+            //Vector2 position = new Vector2((float)e.Position.X, (float)e.Position.Y);
+            Vector3 position = new Vector3();
+            position.X = (float)e.Position.X;
+            position.Y = (float)(this.ActualHeight - e.Position.Y);
+            AppCallbacks.Instance.TryInvokeOnAppThread(() =>
+            {
+                coord =
+                   UnityEngine.Camera.main.ScreenToWorldPoint(new UnityEngine.Vector3(position.X, position.Y, 0));
 
+            }, false);
         }
+
+        private Point StartPoint;
 
         private void ContentGrid_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
@@ -455,22 +379,21 @@ namespace Map1
                 //    if (size <= 100)
                 //{
                 AppCallbacks.Instance.TryInvokeOnAppThread(() =>
-            {
-                UnityEngine.GameObject nearestSmile;
-                var smiles = UnityEngine.GameObject.FindGameObjectsWithTag("Smile");
-                    // UnityEngine.Debug.Log("length = " + smiles.Length);
-                    var cam = UnityEngine.GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Camera>();
-                if (smileCoordinates.Count == 0)
-                {
-                        // UnityEngine.Debug.Log("s");
-                        foreach (var smile in smiles)
                     {
-                            //   UnityEngine.Debug.Log("s");
-                            smileCoordinates.Add(toVector3(cam.WorldToScreenPoint(smile.transform.position)));
-                    }
-                  
+                        UnityEngine.GameObject nearestSmile;
+                        var smiles = UnityEngine.GameObject.FindGameObjectsWithTag("Smile");
+                            // UnityEngine.Debug.Log("length = " + smiles.Length);
+                            var cam = UnityEngine.GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Camera>();
+                        if (smileCoordinates.Count == 0)
+                        {
+                                // UnityEngine.Debug.Log("s");
+                                foreach (var smile in smiles)
+                            {
+                                    //   UnityEngine.Debug.Log("s");
+                                    smileCoordinates.Add(toVector3(cam.WorldToScreenPoint(smile.transform.position)));
+                            }
 
-                }
+                        }
 
 
                     // UnityEngine.Debug.Log("length = " + smiles.Length);
