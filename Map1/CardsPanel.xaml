@@ -46,58 +46,7 @@
             <Rectangle            
             Fill="Red">
             </Rectangle>
-            <ListView>
-                <ListViewItem 
-                    Height="200" HorizontalContentAlignment="Center">
-                    <Rectangle 
-                        Fill="White" 
-                        Width="200" 
-                        Height="180"/>
-                </ListViewItem>
-                <ListViewItem Height="200" HorizontalContentAlignment="Center">
-                    <Rectangle 
-                        Fill="White" 
-                        Width="200" 
-                        Height="180"/>
-                </ListViewItem>
-                <ListViewItem 
-                    Height="200" HorizontalContentAlignment="Center">
-                    <Rectangle 
-                        Fill="White" 
-                        Width="200" 
-                        Height="180"/>
-                </ListViewItem>
-                <ListViewItem Height="200" HorizontalContentAlignment="Center">
-                    <Rectangle 
-                        Fill="White" 
-                        Width="200" 
-                        Height="180"/>
-                </ListViewItem>
-                <ListViewItem Height="200" HorizontalContentAlignment="Center">
-                    <Rectangle 
-                        Fill="White" 
-                        Width="200" 
-                        Height="180"/>
-                </ListViewItem>
-                <ListViewItem 
-                    Height="200" HorizontalContentAlignment="Center">
-                    <Rectangle 
-                        Fill="White" 
-                        Width="200" 
-                        Height="180"/>
-                </ListViewItem>
-                <ListViewItem Height="200" HorizontalContentAlignment="Center">
-                    <Rectangle 
-                        Fill="White" 
-                        Width="200" 
-                        Height="180"/>
-                </ListViewItem>
-                <ListViewItem Height="200" HorizontalContentAlignment="Center">
-                    <Rectangle 
-                        Fill="White" 
-                        Width="200" 
-                        Height="180"/>
-                </ListViewItem>
+            <ListView x:Name="CardsList">
             </ListView>
 
             <Grid.RenderTransform>

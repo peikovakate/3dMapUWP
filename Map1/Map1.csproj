@@ -180,6 +180,23 @@
     </Content>
     <Compile Include="Properties\AssemblyInfo.cs">
     </Compile>
+    <Content Include="Cards\Card_1.jpg" />
+    <Content Include="Cards\Card_10.jpg" />
+    <Content Include="Cards\Card_11.jpg" />
+    <Content Include="Cards\Card_12.jpg" />
+    <Content Include="Cards\Card_13.jpg" />
+    <Content Include="Cards\Card_14.jpg" />
+    <Content Include="Cards\Card_15.jpg" />
+    <Content Include="Cards\Card_16.jpg" />
+    <Content Include="Cards\Card_17.jpg" />
+    <Content Include="Cards\Card_2.jpg" />
+    <Content Include="Cards\Card_3.jpg" />
+    <Content Include="Cards\Card_4.jpg" />
+    <Content Include="Cards\Card_5.jpg" />
+    <Content Include="Cards\Card_6.jpg" />
+    <Content Include="Cards\Card_7.jpg" />
+    <Content Include="Cards\Card_8.jpg" />
+    <Content Include="Cards\Card_9.jpg" />
     <Content Include="Properties\Default.rd.xml">
     </Content>
     <Reference Include="UnityEngine">

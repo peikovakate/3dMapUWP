@@ -226,43 +226,13 @@ namespace Map1
 
         private void ContentGrid_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
         {
-            //if (e.Cumulative.Scale != 1)
-            //{
-            //    AppCallbacks.Instance.TryInvokeOnAppThread(() =>
-            //    {
-            //        if (nearestTable != null)
-            //        {
-            //            //UnityEngine.GameObject.FindGameObjectWithTag("Sphere1").GetComponent<moveSphere>().targetPosition = nearestTable.transform.position;
-            //            UnityEngine.GameObject.FindGameObjectWithTag("MainCamera").GetComponent<RotatigScript>().target = nearestTable.transform;
-            //        }
-
-            //        if (size == maxSize)
-            //        {
-
-            //            UnityEngine.GameObject.FindGameObjectWithTag("MainCamera").GetComponent<RotatigScript>().target = null;
-            //        }
-            //    }, false);
-
-            //}
-
-            dX = dY = 0;
+           
         }
         float maxSize = 40;
-        float minSize = 15;
-       
-        float dX = 0;
-        float dY = 0;
+        float minSize = 15;    
+    
         private void ContentGrid_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
-            //float delta = Math.Abs(e.Delta.Scale - 1);
-            //if (delta <= 0.005 )
-            //{
-            //    AppCallbacks.Instance.TryInvokeOnAppThread(() =>
-            //    {
-            //        UnityEngine.GameObject.FindGameObjectWithTag("MainCamera").GetComponent<RotatigScript>().delta = 1;
-            //    }, false);
-            //    return;
-            //}
 
             float newScale = (e.Delta.Scale - 1) * 0.5f + 1;
             size /= (newScale);
@@ -372,77 +342,62 @@ namespace Map1
             position.X = (float)e.GetPosition(this).X;
             position.Y = (float)(this.ActualHeight - e.GetPosition(this).Y);
             position.Z = 0;
-            //Panel.SlideOutBegin();
             if (size <= minSize + 5)
             {
                 Panel.SlideOutBegin();
-                //    if (size <= 100)
-                //{
                 AppCallbacks.Instance.TryInvokeOnAppThread(() =>
+                {
+                    UnityEngine.GameObject nearestSmile;
+                    var smiles = UnityEngine.GameObject.FindGameObjectsWithTag("Smile");
+
+
+                    if(smiles.Length != 0)
                     {
-                        UnityEngine.GameObject nearestSmile;
-                        var smiles = UnityEngine.GameObject.FindGameObjectsWithTag("Smile");
-                            // UnityEngine.Debug.Log("length = " + smiles.Length);
-                            var cam = UnityEngine.GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Camera>();
+                        // UnityEngine.Debug.Log("length = " + smiles.Length);
+                        var cam = UnityEngine.GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnityEngine.Camera>();
+
                         if (smileCoordinates.Count == 0)
                         {
-                                // UnityEngine.Debug.Log("s");
-                                foreach (var smile in smiles)
+                            // UnityEngine.Debug.Log("s");
+                            foreach (var smile in smiles)
                             {
-                                    //   UnityEngine.Debug.Log("s");
-                                    smileCoordinates.Add(toVector3(cam.WorldToScreenPoint(smile.transform.position)));
+                                //   UnityEngine.Debug.Log("s");
+                                smileCoordinates.Add(toVector3(cam.WorldToScreenPoint(smile.transform.position)));
+                            }
+                        }
+
+                        nearestSmile = smiles[0];
+                        float minDist = float.MaxValue;
+
+
+                        for (int i = 0; i < smiles.Length; i++)
+                        {
+                            //UnityEngine.Debug.Log(i);
+                            if (i > smileCoordinates.Count)
+                            {
+                                smileCoordinates.Add(toVector3(cam.WorldToScreenPoint(smiles[i].transform.position)));
+                            }
+                            smileCoordinates[i] = toVector3(cam.WorldToScreenPoint(smiles[i].transform.position));
+                            smileCoordinates[i] = new System.Numerics.Vector3(smileCoordinates[i].X, smileCoordinates[i].Y, 0);
+
+                            float tempDist = Vector3.Distance(position, smileCoordinates[i]);
+                            if (tempDist < minDist)
+                            {
+                                minDist = tempDist;
+                                nearestSmile = smiles[i];
                             }
 
                         }
-
-
-                    // UnityEngine.Debug.Log("length = " + smiles.Length);
-                    nearestSmile = smiles[0];
-                float minDist = float.MaxValue;
-
-
-                for (int i = 0; i < smiles.Length; i++)
-                {
-                        //UnityEngine.Debug.Log(i);
-                        if (i > smileCoordinates.Count)
-                    {
-                        smileCoordinates.Add(toVector3(cam.WorldToScreenPoint(smiles[i].transform.position)));
-                    }
-                    smileCoordinates[i] = toVector3(cam.WorldToScreenPoint(smiles[i].transform.position));
-                    smileCoordinates[i] = new System.Numerics.Vector3(smileCoordinates[i].X, smileCoordinates[i].Y, 0);
-                    //UnityEngine.Debug.Log("smile + " + smiles[i].transform.position);
-
-                    float tempDist = Vector3.Distance(position, smileCoordinates[i]);
-                        //UnityEngine.Debug.Log("temp distance = " + tempDist);
-
-                    if (tempDist < minDist)
+                        //UnityEngine.Debug.Log("minimum distane = " + minDist);
+                        if (nearestSmile != null)
                         {
-                            minDist = tempDist;
-                            nearestSmile = smiles[i];
+                            var sign = UnityEngine.GameObject.FindGameObjectWithTag("Sign");
+                            sign.transform.position =
+                                new UnityEngine.Vector3(nearestSmile.transform.position.x, nearestSmile.transform.position.y, nearestSmile.transform.position.z + 0.1f);
                         }
-
-                    }
-                    //UnityEngine.Debug.Log("minimum distane = " + minDist);
-                    if (nearestSmile != null)
-                    {
-                        //UnityEngine.Debug.Log(nearestSmile.transform.position);
-                        //UnityEngine.GameObject.FindGameObjectWithTag("Sign").transform.position =
-                        // new UnityEngine.Vector3(nearestSmile.transform.position.x / 10.0f, nearestSmile.transform.position.y / 10.0f + 0.5f, nearestSmile.transform.position.z / 10.0f + 0.1f);
-
-                    var sign = UnityEngine.GameObject.FindGameObjectWithTag("Sign");
-                    //UnityEngine.Debug.Log("sign position " + sign.transform.position);
-
-                    sign.transform.position = 
-                        new UnityEngine.Vector3(nearestSmile.transform.position.x, nearestSmile.transform.position.y, nearestSmile.transform.position.z+0.1f);
-
-                    //UnityEngine.Debug.Log("sign new position " + sign.transform.position);
-
-                   
-                        //new UnityEngine.Vector3(0, 0, 0);
                     }
 
-
-            }, false);
+                }, false);
             }
         }
 #else
