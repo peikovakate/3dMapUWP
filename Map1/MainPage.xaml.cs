@@ -21,7 +21,7 @@ using System.Numerics;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 using UnityPlayer;
-
+using System.Threading.Tasks;
 
 namespace Map1
 {
@@ -58,6 +58,8 @@ namespace Map1
 		{
 			this.InitializeComponent();
 
+            Panel.ChooseCard += Panel_ChooseCard;
+            Panel.CardClicked += Panel_CardClicked;
             coordinates = new List<Vector3>();
             smileCoordinates = new List<Vector3>();
             NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Required;
@@ -93,7 +95,28 @@ namespace Map1
 #endif
 		}
 
-		protected override void OnNavigatedTo(NavigationEventArgs e)
+        private void Panel_CardClicked(object sender, EventArgs e)
+        {
+            AppCallbacks.Instance.TryInvokeOnAppThread(() =>
+            {
+                UnityEngine.GameObject.FindGameObjectWithTag("Control").GetComponent<Control>().TargetPosition = nearestSmile.transform.position;
+                UnityEngine.GameObject.FindGameObjectWithTag("Control").GetComponent<Control>().NumberOfCard = Panel.cardNumber;
+                UnityEngine.GameObject.FindGameObjectWithTag("Control").GetComponent<Control>().Reposition();
+            }, false);
+        }
+
+        private void Panel_ChooseCard(object sender, EventArgs e)
+        {
+            AppCallbacks.Instance.TryInvokeOnAppThread(() =>
+            {
+                UnityEngine.Camera.main.GetComponent<RotatigScript>().target = null;
+                UnityEngine.Camera.main.GetComponent<RotatigScript>().targetSize = maxSize;
+                size = maxSize;
+            }, false);
+
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
 			splash = (SplashScreen)e.Parameter;
 			OnResize();
@@ -226,7 +249,32 @@ namespace Map1
 
         private void ContentGrid_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
         {
-           
+           if(e.Cumulative.Scale != 1)
+            {
+                if (e.Cumulative.Scale > 1)
+                {
+                    size -= 1;
+                    if (size < minSize)
+                    {
+                        size = minSize;
+                    }
+                }
+                else
+                {
+                    size += 1;
+                    if (size > maxSize)
+                    {
+                        size = maxSize;
+                    }
+                }
+
+                AppCallbacks.Instance.TryInvokeOnAppThread(() =>
+                {
+                    UnityEngine.GameObject.FindGameObjectWithTag("MainCamera").GetComponent<RotatigScript>().targetSize = size;
+                    UnityEngine.GameObject.FindGameObjectWithTag("MainCamera").GetComponent<RotatigScript>().isDelta = true;
+                }, false);
+
+            }
         }
         float maxSize = 40;
         float minSize = 15;    
@@ -291,7 +339,6 @@ namespace Map1
                         minDist = tempDist;
                         nearestTable = tables[i];
                     }
-
                 }
                 //UnityEngine.Debug.Log("minimum distane = " + minDist);
                 if (nearestTable != null)
@@ -307,7 +354,7 @@ namespace Map1
                     UnityEngine.GameObject.FindGameObjectWithTag("MainCamera").GetComponent<RotatigScript>().target = null;
                 }
                 UnityEngine.GameObject.FindGameObjectWithTag("MainCamera").GetComponent<RotatigScript>().targetSize = size;
-
+                UnityEngine.GameObject.FindGameObjectWithTag("MainCamera").GetComponent<RotatigScript>().isDelta = false;
             }, false);
             
 
@@ -335,7 +382,7 @@ namespace Map1
         {
             
         }
-
+        UnityEngine.GameObject nearestSmile;
         private void ContentGrid_Tapped(object sender, TappedRoutedEventArgs e)
         {
             Vector3 position = new Vector3();
@@ -343,13 +390,12 @@ namespace Map1
             position.Y = (float)(this.ActualHeight - e.GetPosition(this).Y);
             position.Z = 0;
             if (size <= minSize + 5)
-            {
+            { 
                 Panel.SlideOutBegin();
                 AppCallbacks.Instance.TryInvokeOnAppThread(() =>
                 {
-                    UnityEngine.GameObject nearestSmile;
+                    
                     var smiles = UnityEngine.GameObject.FindGameObjectsWithTag("Smile");
-
 
                     if(smiles.Length != 0)
                     {
@@ -391,7 +437,9 @@ namespace Map1
                         //UnityEngine.Debug.Log("minimum distane = " + minDist);
                         if (nearestSmile != null)
                         {
+                            UnityEngine.GameObject.FindGameObjectWithTag("Drops").GetComponent<DropsScript>().Restart();
                             var sign = UnityEngine.GameObject.FindGameObjectWithTag("Sign");
+                            
                             sign.transform.position =
                                 new UnityEngine.Vector3(nearestSmile.transform.position.x, nearestSmile.transform.position.y, nearestSmile.transform.position.z + 0.1f);
                         }

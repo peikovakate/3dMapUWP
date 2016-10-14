@@ -49,7 +49,33 @@ namespace Map1
 
         public void SlideInBegin()
         {
+            CardsList.Visibility = Visibility.Collapsed;
+            Text.Visibility = Visibility.Visible;
             SlideIn.Begin();
+        }
+
+
+        public delegate void OnChooseCard(object sender, EventArgs e);
+        public event OnChooseCard ChooseCard;
+
+        public delegate void OnCardClick(object sender, EventArgs e);
+        public event OnCardClick CardClicked;
+
+        private void Grid_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            CardsList.Visibility = Visibility.Visible;
+            Text.Visibility = Visibility.Collapsed;
+            ChooseCard?.Invoke(null, new EventArgs());
+        }
+
+        public int cardNumber;
+
+
+
+        private void CardsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cardNumber = CardsList.SelectedIndex;
+            CardClicked?.Invoke(null, new EventArgs());
         }
     }
 }

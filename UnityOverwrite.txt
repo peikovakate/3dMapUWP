@@ -35,5 +35,5 @@ Map1\bin\x64\Release\AppX\Assets\Wide310x150Logo.scale-200.png: C96846A80DF667F8
 Map1\obj\x64\Debug\App.xaml: 58E9AEB77C1614629F61CA2F2A21DF1B
 Map1\obj\x64\Debug\MainPage.xaml: 84B511D3AAACC127B6D596387B78687F
 Map1\obj\x64\Release\App.xaml: 58E9AEB77C1614629F61CA2F2A21DF1B
-Map1\obj\x64\Release\MainPage.xaml: modified
+Map1\obj\x64\Release\MainPage.xaml: C133636DC81808350B7BDD465BE036E5
 Map1\Properties\AssemblyInfo.cs: 4A9980AD1908BC554AA672A2C8D442F2

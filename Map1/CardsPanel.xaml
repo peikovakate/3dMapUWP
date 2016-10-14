@@ -42,17 +42,50 @@
             Width="300" 
             Margin="-300,0,0,0"
             HorizontalAlignment="Left" 
-            RenderTransformOrigin="0.5,0.5" >
+            RenderTransformOrigin="0.5,0.5"             
+            >
+            
             <Rectangle            
-            Fill="Red">
+                Fill="Red">
             </Rectangle>
-            <ListView x:Name="CardsList">
+            <ListView 
+                x:Name="CardsList"
+                Visibility="Collapsed"
+                SelectionChanged="CardsList_SelectionChanged"
+                >
             </ListView>
+
+            <Grid
+                x:Name="Text"
+                Tapped="Grid_Tapped"
+                >
+                <TextBlock 
+                    Text="Choose" 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center" 
+                    FontFamily="Gotham Pro" 
+                    FontSize="48" 
+                    Margin="0,0,0,40" 
+                    Foreground="White" 
+                   
+                    />
+                <TextBlock 
+                    Text="a card" 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center" 
+                    FontFamily="Gotham Pro" 
+                    FontSize="48" 
+                    Margin="0,40,0,0" 
+                    Foreground="White" 
+                    
+                    />
+            </Grid>
 
             <Grid.RenderTransform>
                 <CompositeTransform/>
             </Grid.RenderTransform>
 
         </Grid>
+        
     </Grid>
 </UserControl>
