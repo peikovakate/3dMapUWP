@@ -128,8 +128,12 @@ namespace Map1
 		{
 #if UNITY_UWP
 			Windows.Graphics.Display.DisplayInformation.AutoRotationPreferences = Windows.Graphics.Display.DisplayOrientations.Landscape|Windows.Graphics.Display.DisplayOrientations.LandscapeFlipped|Windows.Graphics.Display.DisplayOrientations.Portrait|Windows.Graphics.Display.DisplayOrientations.PortraitFlipped;
-		ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
+
+
+            ApplicationView.PreferredLaunchViewSize = new Size(1810, 970);
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+            //ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
 #endif
-		}
+        }
 	}
 }
